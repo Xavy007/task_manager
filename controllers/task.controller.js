@@ -1,4 +1,4 @@
-const {Task}=require('../models')
+const {Task, User}=require('../models')
 
 
 exports.getTasks=async(req,res)=>{
@@ -65,3 +65,19 @@ exports.getByIduser=async(req,res)=>{
         console.error('Error ',error);
     }
 }
+
+exports.getTasksWithUsers= async (req, res) => {
+    try {
+      const tasks = await Task.findAll({
+        include: {
+          model: User, 
+          attributes: ["name"], 
+        },
+      });
+  
+      res.json(tasks);
+    } catch (error) {
+      console.error("Error al obtener tareas:", error);
+      res.status(500).json({ message: "Error al obtener tareas" });
+    }
+  };
