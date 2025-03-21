@@ -46,6 +46,7 @@ exports.login = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRES_IN }
         );
+        
         console.log(token)
         res.json({ token });
     } catch (error) {
