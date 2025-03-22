@@ -10,6 +10,7 @@ exports.getUsers=async(req,res)=>{
 }
 
 exports.createUser=async(req,res)=>{
+    console.log(req.body)
     const salt= await bcrypt.genSalt(10);
     const hash= await bcrypt.hash(req.body.password,salt);
     const user={

@@ -3,11 +3,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const{User}=require('../models');
 
-// 🔹 REGISTRAR USUARIO
 exports.register = async (req, res) => {
     const { name, email, password } = req.body;
     console.log(req.body)
-
     try {
         // Verificar si el usuario ya existe
         const userExist = await User.findOne({ where: { email } });
@@ -25,7 +23,7 @@ exports.register = async (req, res) => {
     }
 };
 
-// 🔹 LOGIN (Genera JWT)
+
 exports.login = async (req, res) => {
     const { email, password } = req.body;
     console.log(req.body)
@@ -41,20 +39,28 @@ exports.login = async (req, res) => {
         if (!esCorrecta) return res.status(401).json({ mensaje: 'Contraseña incorrecta' });
         
         // Crear token JWT
-        const token = jwt.sign(
+      const token = jwt.sign(
             { id: usuario.id, name: usuario.name, email: usuario.email },
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRES_IN }
         );
-        
         console.log(token)
-        res.json({ token });
+
+        res.cookie("token", token, {
+            httpOnly: true,  // Evita acceso desde JavaScript en el navegador
+            secure: process.env.NODE_ENV === "production", // Solo en HTTPS en producción
+            sameSite: "Strict", // Protección contra ataques CSRF
+            maxAge: 1000 * 60 * 60 * 24, 
+        });
+      /*  res.json({ token });*/
+      res.status(201).json({ mensaje: 'Usuario registrado' });
+
     } catch (error) {
         res.status(500).json({ error: 'Error en el servidor' });
     }
 };
 
-// 🔹 PERFIL PROTEGIDO
+
 exports.getProfile = async (req, res) => {
     try {
         const usuario = await User.findByPk(req.usuario.id, { attributes: ['id', 'name', 'email'] });
