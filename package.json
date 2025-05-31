@@ -4,6 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
+    "dev": "nodemon index.js",               // Inicia el servidor con nodemon para desarrollo
+    "test": "mocha test/**/*.js",            // Ejecuta las pruebas si usas Mocha
+    "lint": "eslint .",                      // Ejecuta ESLint para analizar el código
+    "deploy": "bash deploy.sh" 
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
