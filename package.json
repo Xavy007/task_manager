@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www"
     "dev": "nodemon index.js",               // Inicia el servidor con nodemon para desarrollo
-    "test": "mocha test/**/*.js",            // Ejecuta las pruebas si usas Mocha
+    "test": "mocha test/**/*.js",            // Ejecuta las pruebas si usas Mocha modificador
     "lint": "eslint .",                      // Ejecuta ESLint para analizar el código
     "deploy": "bash deploy.sh" 
   },
