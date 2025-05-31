@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon index.js",               // Inicia el servidor con nodemon para desarrollo
-    "test": "mocha test/**/*.js",            // Ejecuta las pruebas si usas Mocha modificador
-    "lint": "eslint .",                      // Ejecuta ESLint para analizar el código
+    "dev": "nodemon index.js",               
+    "test": "mocha test/**/*.js",            
+    "lint": "eslint .",                      
     "deploy": "bash deploy.sh" 
   },
   "dependencies": {
